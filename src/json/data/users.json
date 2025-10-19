@@ -1,0 +1,15 @@
+{
+    "0": {
+        "Id": "Maker",
+        "Name": "Kolamona站长-Official",
+        "Official": [true, "Maker"],
+        "About": "我是Kolamona权威站长💩🤪😱",
+        "Videos": [
+            {
+                "Title": "欢迎来到Kolamona",
+                "Vid": "0",
+                "Src": ""
+            }
+        ]
+    }
+}

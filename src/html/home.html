@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kolamona</title>
+        <link rel="icon" type="image/svg+xml" href="../../src/svg/icon.svg">
+    </head>
+    <body>
+        <div style="width: auto; height: auto; background-color: antiquewhite; padding-left: 0.5em; padding-right: 0.5em; outline: 0.2em solid blue;">
+            <a href="welcome.html"><img src="../../src/svg/icon.svg" width="30em" height="30em" onclick="" title="(the logo of kolamona)"></a><a href="welcome.html" style="font-size: 2em; font-weight: bold;color: pink;cursor: auto;text-decoration: none;">olamona</a>
+        </div>
+        <div style="width: auto; height: auto; background-color: antiquewhite; padding-left: 0.5em; padding-right: 0.5em; outline: 0.2em solid blue;">
+            <a style="font-size: 2em; font-weight: bold;cursor: auto;text-decoration: none;
+            color: blue;"
+            href="home.html">
+                Home
+            </a>
+            <a style="font-size: 2em; font-weight: bold;cursor: auto;text-decoration: none;
+            color: chocolate;"
+            href="about.html">
+                About
+            </a>
+        </div>
+        <noscript>
+            <a style="font-size: 3em; font-weight: bold; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                Emm... There's no <span style="color: red;">script</span> :(
+            </a>
+        </noscript>
+        <div id="rollVideoView"></div>
+    </body>
+    <script>
+        const rollVideoView = document.getElementById('rollVideoView');
+        (async () => {
+            try {
+                const response = await fetch('../../src/json/data/users.json');
+                if (!response.ok) throw new Error('数据加载失败');
+                const data = await response.json();
+
+                Object.values(data).forEach(user => {
+                    user.Videos.forEach(video => {
+                        const span = document.createElement('span');
+                        span.className = 'video-item';
+                        span.innerHTML = `
+                            <div class="video-info">Maker: ${user.Name || '查询不到此用户'}</div>
+                            <div class="video-info">Title: ${video.Title || '无标题'}</div>
+                        `;
+                        rollVideoView.appendChild(span);
+                    });
+                });
+
+                if (rollVideoView.children.length === 0) {
+                    rollVideoView.innerHTML = '<a style="font-size: 3em; font-weight: bold; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;">Emm... There\'s nothing :(</a>';
+                }
+            } catch (err) {
+                console.error('Error:', err.message);
+                rollVideoView.innerHTML = '<a style="color: red; font-size: 3em; font-weight: bold; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;">Datas fly away</a>';
+            }
+        })();
+    </script>
+</html>
