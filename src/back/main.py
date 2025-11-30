@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5500"}})
 
-DATA_FOLDER = "data"
+DATA_FOLDER = os.path.join(os.path.dirname(__file__), "data")
 USERS_FILE = os.path.join(DATA_FOLDER, "users.json")
 COUNTER_FILE = os.path.join(DATA_FOLDER, "vCount.json")
 
@@ -123,10 +123,13 @@ def get_video_by_id():
         with open(USERS_FILE, "r", encoding="utf-8") as f:
             users_data = json.load(f)
         
-        for user_id in users_data:
+        for user_id, user_info in users_data.items():
             for video in users_data[user_id]["Videos"]:
                 if video["Vid"] == vid:
-                    return jsonify(video)
+                    return jsonify({
+                        **video,
+                        "Maker": user_info
+                    })
         
         return jsonify({"error": "cannot find video"}), 404
     except Exception as e:
@@ -140,13 +143,38 @@ def get_all_videos():
             users_data = json.load(f)
         
         all_videos = []
-        for user_id in users_data:
-            all_videos.extend(users_data[user_id]["Videos"])
+        for user_id, user_info in users_data.items():
+             for video in user_info["Videos"]:
+                all_videos.append({
+                    **video,
+                    "Maker": user_info
+                })
         
         return jsonify(all_videos)
     except Exception as e:
         print(f"获取所有视频失败：{e}")
         return jsonify({"error": "cannot get all videos"}), 500
+@app.route("/api/videos/get/random", methods=["GET"])
+def get_random_fifteen_videos():
+    try:
+        import random
+        with open(USERS_FILE, "r", encoding="utf-8") as f:
+            users_data = json.load(f)
+        
+        all_videos = []
+        for user_id, user_info in users_data.items():
+             for video in user_info["Videos"]:
+                all_videos.append({
+                    **video,
+                    "Maker": user_info
+                })
+        
+        random_videos = random.sample(all_videos, min(15, len(all_videos)))
+        
+        return jsonify(random_videos)
+    except Exception as e:
+        print(f"获取随机视频失败：{e}")
+        return jsonify({"error": "cannot get random videos"}), 500
 
 if __name__ == "__main__":
     if not os.path.exists(DATA_FOLDER):

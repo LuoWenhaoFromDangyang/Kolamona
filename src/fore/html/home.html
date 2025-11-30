@@ -31,7 +31,7 @@
         const rollVideoView = document.getElementById('rollVideoView');
         (async () => {
             try {
-                const response = await fetch('http://localhost:5500/api/videos/get/all');
+                const response = await fetch('http://localhost:3000/api/videos/get/random');
                 if (!response.ok) throw new Error('数据加载失败');
                 const data = await response.json();
 
@@ -39,8 +39,14 @@
                     const span = document.createElement('span');
                     span.className = 'video-item';
                     span.innerHTML = `
-                        <div class="video-info">Maker: ${user.Name || '查询不到此用户'}</div>
-                        <div class="video-info">Title: ${video.Title || '无标题'}</div>
+                        <span style="boder-radius: 0.5em; background-color: yellow;">
+                            ${video.Src ? 
+                                `<video controls width="400" src="${video.Src}">您的浏览器不支持视频播放</video>` : 
+                                `<div style="width: 400px; height: 225px; background-color: gray; color: white; text-align: center; line-height: 225px; border-radius: 0.5em;">视频尚未制作，敬请期待～</div>`
+                            }
+                            <div class="video-info">Maker: ${video.Maker.Name || '查询不到此用户'}</div>
+                            <div class="video-info">Title: ${video.Title || '无标题'}</div>
+                        </span>
                     `;
                     rollVideoView.appendChild(span);
                 });
