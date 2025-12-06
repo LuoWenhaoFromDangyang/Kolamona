@@ -15,4 +15,5 @@ For running the backend server, follow the steps below:
 For running the frontend web application, follow the steps below:
  - Open the `home.html` file located in the `src/fore/html`.
  - The web application will load and interact with the backend server running on `http://localhost:5000`.
- - To view the welcome message, open the `welcome.html` file located in the `src/fore/html`. > It's really simple! You cannot only view it!
+ - To view the welcome message, open the `welcome.html` file located in the `src/fore/html`.
+ - > It's really simple! You cannot only view it!
