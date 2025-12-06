@@ -26,7 +26,9 @@
                 Emm... There's no <span style="color: red;">script</span> :(
             </a>
         </noscript>
-        <div id="rollVideoView"></div>
+        <div id="rollVideoView">
+            Wait a minute...
+        </div>
     </body>
     <script>
         const rollVideoView = document.getElementById('rollVideoView');
@@ -35,6 +37,7 @@
                 const response = await fetch('http://localhost:3000/api/videos/get/random');
                 if (!response.ok) throw new Error('数据加载失败');
                 const data = await response.json();
+                rollVideoView.innerHTML = '';
 
                 Object.values(data).forEach(video => {
                     const span = document.createElement('span');
