@@ -4,7 +4,7 @@ import json
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5500"}})
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5500", "http://127.0.0.1:5500"]}})
 
 DATA_FOLDER = os.path.join(os.path.dirname(__file__), "data")
 USERS_FILE = os.path.join(DATA_FOLDER, "users.json")
@@ -50,6 +50,7 @@ def add_new_video():
         user_id = request_data.get("userId")
         video_title = request_data.get("title")
         video_src = request_data.get("src")
+        video_picture = request_data.get("picture")
         
         if not all([user_id, video_title, video_src]):
             return jsonify({"error": "missing parameters! userId, title, src must be provided"}), 400
@@ -67,7 +68,8 @@ def add_new_video():
         users_data[user_id]["Videos"].append({
             "Title": video_title,
             "Vid": hex_vid,
-            "Src": video_src
+            "Src": video_src,
+            "Picture": video_picture
         })
         
         with open(USERS_FILE, "w", encoding="utf-8") as f:
@@ -155,7 +157,7 @@ def get_all_videos():
         print(f"获取所有视频失败：{e}")
         return jsonify({"error": "cannot get all videos"}), 500
 @app.route("/api/videos/get/random", methods=["GET"])
-def get_random_fifteen_videos():
+def get_random_fifty_videos():
     try:
         import random
         with open(USERS_FILE, "r", encoding="utf-8") as f:
@@ -169,7 +171,7 @@ def get_random_fifteen_videos():
                     "Maker": user_info
                 })
         
-        random_videos = random.sample(all_videos, min(15, len(all_videos)))
+        random_videos = random.sample(all_videos, min(50, len(all_videos)))
         
         return jsonify(random_videos)
     except Exception as e:

@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Kolamona</title>
+        <meta charset="UTF-8">
         <link rel="icon" type="image/svg+xml" href="../svg/icon.svg">
     </head>
     <body>
@@ -37,17 +38,32 @@
 
                 Object.values(data).forEach(video => {
                     const span = document.createElement('span');
-                    span.className = 'video-item';
+                    span.style="boder-radius: 0.5em; background-color: yellow; width: 400px;"
                     span.innerHTML = `
-                        <span style="boder-radius: 0.5em; background-color: yellow;">
-                            ${video.Src ? 
-                                `<video controls width="400" src="${video.Src}">您的浏览器不支持视频播放</video>` : 
-                                `<div style="width: 400px; height: 225px; background-color: gray; color: white; text-align: center; line-height: 225px; border-radius: 0.5em;">视频尚未制作，敬请期待～</div>`
-                            }
-                            <div class="video-info">Maker: ${video.Maker.Name || '查询不到此用户'}</div>
-                            <div class="video-info">Title: ${video.Title || '无标题'}</div>
-                        </span>
-                    `;
+                        <div style="width: 400px; height: 225px; background-color: gray; color: white; text-align: center; line-height: 225px; border-radius: 0.5em; overflow: hidden;">
+                            <a src="${video.Src ? `../videoview.html?src=${video.Src}` : `../videocannotplay.html?from='../home.html'`}">
+                                <div>
+                                    ${video.Picture ?
+                                    `
+                                    <img src="${video.Picture}" style="width: 100%; height: 100%;">
+                                    `
+                                    :
+                                    `
+                                    No picture available
+                                    `
+                                    }
+                                </div>
+                            </a>
+                        </div>
+                        <div style="color: #333333; font-size: 0.8em; display: flex; align-items: center;">
+                            ${video.Maker.Head?`<img src="${video.Maker.Head}" width="25px" height="25px" style="border-radius: 50%;">`:''}
+                            ${video.Maker.Official[0]?`<img src="../svg/official.svg" width="15px" height="15px" >`:''}
+                            ${video.Maker.Name || 'Unknown'}
+                        </div>
+                        <div style="font-size: 1.5em; font-weight: bold; color: #111111;">
+                            ${video.Title || 'Untitled'}
+                        </div>
+                        `;
                     rollVideoView.appendChild(span);
                 });
 

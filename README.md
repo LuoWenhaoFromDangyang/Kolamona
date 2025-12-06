@@ -2,7 +2,7 @@ Hello!
 ---
 Please do this:
  - Clone the repository
- - If you don't have Python installed, install it from the official website.
+ - If you don't have Python installed, install it from [manager](https://www.python.org/ftp/python/pymanager/python-manager-25.2.msix) or just [download it](https://www.python.org/downloads/)
  - Open the terminal
  - If you don't have pip installed, run the following command: `python -m ensurepip --default-pip`
  - Install the required packages by running the following command: `pip install -r requirements.txt`
