@@ -12,16 +12,18 @@
         <div style="width: auto; height: auto; background-color: antiquewhite; padding-left: 0.5em; padding-right: 0.5em; outline: 0.2em solid blue;">
             <a style="font-size: 2em; font-weight: bold;cursor: auto;text-decoration: none;
             color: chocolate;"
-            href="home.html">
+            href="home.html"
+            id="homeLink">
                 Home
             </a>
             <a style="font-size: 2em; font-weight: bold;cursor: auto;text-decoration: none;
             color: blue;"
-            href="about.html">
+            href="about.html"
+            id="aboutLink">
                 About
             </a>
         </div>
-        <article>
+        <article id="aboutText">
             Maker: 只是普通人偶@bilibili (uid:60687424874)<br>
             <br>
             buy me a ☕coffee please(qwq)<br>
@@ -34,5 +36,136 @@
         </article>
     </body>
     <script>
+        const myBirthday = new Date(2012, 10, 7);
+        function getAge(birthday) {
+            const b = new Date(birthday);
+            const n = new Date();
+            let age = n.getFullYear() - b.getFullYear();
+            if (n.getMonth() < b.getMonth() || (n.getMonth() === b.getMonth() && n.getDate() < b.getDate())) age--;
+            return age;
+        }
+        const myAge = getAge(myBirthday);
+        const languages = {
+            "en-us": {
+                "homeLink": "Home",
+                "aboutLink": "About",
+                "aboutText": `
+                Maker: 只是普通人偶@bilibili (uid:60687424874)<br>
+                <br>
+                buy me a ☕coffee please(qwq)<br>
+                <button style="background-color: antiquewhite;" onclick="alert('Thanks! But I\'m ${myAge} years old now, you can not pay it :(')">pay ¥3($0.42, 0.36€)</button><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                Since 2025 20 Sept. (2025.9.20) noon
+                `
+            },
+            "zh-cn": {
+                "homeLink": "首页",
+                "aboutLink": "关于",
+                "aboutText": `
+                制作者: 只是普通人偶@bilibili (uid:60687424874)<br>
+                <br>
+                请给我买杯☕咖啡(qwq)<br>
+                <button style="background-color: antiquewhite;" onclick="alert('谢谢！但我现在才${myAge}岁，我怕被发现 :(')">支付 ¥3($0.42, 0.36€)</button><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                始于2025年9月20日 (2025.9.20) 中午
+                <br>
+                <br>
+                (我他妈不是程序员) (╯‵□′)╯︵┻━┻
+                `
+            },
+            "zh-tw": {
+                "homeLink": "首頁",
+                "aboutLink": "關於",
+                "aboutText": `
+                製作者: 只是普通人偶@bilibili (uid:60687424874)<br>
+                <br>
+                請給我一杯☕咖啡(qwq)<br>
+                <button style="background-color: antiquewhite;" onclick="alert('謝謝！但我現在才${myAge}歲，我怕被發現 :(')">付款 ¥3($0.42, 0.36€)</button><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                始於2025年9月20日 (2025.9.20) 中午
+                <br>
+                <br>
+                (我不是程式設計師) (╯‵□′)╯︵┻━┻
+                `
+            },
+            "ja-jp": {
+                "homeLink": "ホーム",
+                "aboutLink": "について",
+                "aboutText": `
+                制作者: 只是普通人偶@bilibili (uid:60687424874)<br>
+                <br>
+                ☕コーヒーを買ってください(qwq)<br>
+                <button style="background-color: antiquewhite;" onclick="alert('ありがとう！でも私はまだ${myAge}歳なので、バレるのが怖いです :(')">¥3を支払う($0.42, 0.36€)</button><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                2025年9月20日から正午まで (2025.9.20)
+                `
+            },
+            "ko-kr": {
+                "homeLink": "홈",
+                "aboutLink": "소개",
+                "aboutText": `
+                제작자: 只是普通人偶@bilibili (uid:60687424874)<br>
+                <br>
+                ☕커피를 사주세요(qwq)<br>
+                <button style="background-color: antiquewhite;" onclick="alert('감사합니다! 하지만 나는 ${myAge}살이기 때문에 지불할 수 없습니다 :(')">¥3($0.42, 0.36€) 지불하기</button><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                2025년 9월 20일 오후부터 (2025.9.20)
+                `
+            },
+            "es-es": {
+                "homeLink": "Inicio",
+                "aboutLink": "Acerca de",
+                "aboutText": `
+                Creador: 只是普通人偶@bilibili (uid:60687424874)<br>
+                <br>
+                Por favor, compreme un café(qwq)<br>
+                <button style="background-color: antiquewhite;" onclick="alert('Gracias! Pero yo ya no tengo ${myAge} años, no puedo pagarlo :(')">Pagar ¥3($0.42, 0.36€)</button><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                Desde el 20 de Septiembre de 2025 (2025.9.20) a las 12:00
+                `
+            },
+            "fr-fr": {
+                "homeLink": "Accueil",
+                "aboutLink": "À propos",
+                "aboutText": `
+                Créateur: 只是普通人偶@bilibili (uid:60687424874)<br>
+                <br>
+                S'il vous plaît, m'envoyez un café(qwq)<br>
+                <button style="background-color: antiquewhite;" onclick="alert('Merci! Mais je n'ai pas ${myAge} ans, je ne peux pas le payer :(')">Payer ¥3($0.42, 0.36€)</button><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                Depuis le 20 Septembre 2025 (2025.9.20) midi
+                `
+            },
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            Object.entries(languages).forEach(([lang, data]) => {
+                if (navigator.language.toLowerCase() === lang.toLowerCase()) {
+                    Object.entries(data).forEach(([key, value]) => {
+                        document.getElementById(key).innerHTML = value;
+                    });
+                }
+            });
+        });
     </script>
 </html>

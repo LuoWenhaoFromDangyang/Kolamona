@@ -12,12 +12,14 @@
         <div style="width: auto; height: auto; background-color: antiquewhite; padding-left: 0.5em; padding-right: 0.5em; outline: 0.2em solid blue;">
             <a style="font-size: 2em; font-weight: bold;cursor: auto;text-decoration: none;
             color: blue;"
-            href="home.html">
+            href="home.html"
+            id="homeLink">
                 Home
             </a>
             <a style="font-size: 2em; font-weight: bold;cursor: auto;text-decoration: none;
             color: chocolate;"
-            href="about.html">
+            href="about.html"
+            id="aboutLink">
                 About
             </a>
         </div>
@@ -31,52 +33,142 @@
         </div>
     </body>
     <script>
-        const rollVideoView = document.getElementById('rollVideoView');
-        (async () => {
-            try {
-                const response = await fetch('http://localhost:3000/api/videos/get/random');
-                if (!response.ok) throw new Error('数据加载失败');
-                const data = await response.json();
-                rollVideoView.innerHTML = '';
-
-                Object.values(data).forEach(video => {
-                    const span = document.createElement('span');
-                    span.style="boder-radius: 0.5em; background-color: yellow; width: 400px;"
-                    span.innerHTML = `
-                        <div style="width: 400px; height: 225px; background-color: gray; color: white; text-align: center; line-height: 225px; border-radius: 0.5em; overflow: hidden;">
-                            <a src="${video.Src ? `../videoview.html?src=${video.Src}` : `../videocannotplay.html?from='../home.html'`}">
-                                <div>
-                                    ${video.Picture ?
-                                    `
-                                    <img src="${video.Picture}" style="width: 100%; height: 100%;">
-                                    `
-                                    :
-                                    `
-                                    No picture available
-                                    `
-                                    }
-                                </div>
-                            </a>
-                        </div>
-                        <div style="color: #333333; font-size: 0.8em; display: flex; align-items: center;">
-                            ${video.Maker.Head?`<img src="${video.Maker.Head}" width="25px" height="25px" style="border-radius: 50%;">`:''}
-                            ${video.Maker.Official[0]?`<img src="../svg/official.svg" width="15px" height="15px" >`:''}
-                            ${video.Maker.Name || 'Unknown'}
-                        </div>
-                        <div style="font-size: 1.5em; font-weight: bold; color: #111111;">
-                            ${video.Title || 'Untitled'}
-                        </div>
-                        `;
-                    rollVideoView.appendChild(span);
-                });
-
-                if (rollVideoView.children.length === 0) {
-                    rollVideoView.innerHTML = '<a style="font-size: 3em; font-weight: bold; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;">Emm... There\'s nothing :(</a>';
+        const languages = {
+            "en-us": {
+                "homeLink": "Home",
+                "aboutLink": "About",
+                "rollVideoView": "Wait a minute...",
+                "noPicture": "No picture available",
+                "unknownMaker": "Unknown",
+                "untitled": "Untitled",
+                "noData": "Datas fly away",
+            },
+            "zh-cn": {
+                "homeLink": "首页",
+                "aboutLink": "关于",
+                "rollVideoView": "稍等片刻...",
+                "noPicture": "封面跑丢啦",
+                "unknownMaker": "未知",
+                "untitled": "无标题",
+                "noData": "不儿我数据呢？！！😡",
+            },
+            "zh-tw": {
+                "homeLink": "首頁",
+                "aboutLink": "關於",
+                "rollVideoView": "稍等片刻...",
+                "noPicture": "封面跑丟啦",
+                "unknownMaker": "未知",
+                "untitled": "無標題",
+                "noData": "不儿我資料呢？！！😡",
+            },
+            "ja-jp": {
+                "homeLink": "ホーム",
+                "aboutLink": "について",
+                "rollVideoView": "ちょっと待ってください...",
+                "noPicture": "写真がありません",
+                "unknownMaker": "不明",
+                "untitled": "無題",
+                "noData": "データは飛び出します",
+            },
+            "ko-kr": {
+                "homeLink": "홈",
+                "aboutLink": "소개",
+                "rollVideoView": "잠시만 기다려주세요...",
+                "noPicture": "사진이 없습니다",
+                "unknownMaker": "미지수",
+                "untitled": "제목 없음",
+                "noData": "데이터가 날아갑니다",
+            },
+            "es-es": {
+                "homeLink": "Inicio",
+                "aboutLink": "Acerca de",
+                "rollVideoView": "Espera un momento...",
+                "noPicture": "No hay imagen disponible",
+                "unknownMaker": "Desconocido",
+                "untitled": "Sin título",
+                "noData": "Los datos vuelan",
+            },
+            "fr-fr": {
+                "homeLink": "Accueil",
+                "aboutLink": "À propos",
+                "rollVideoView": "Attendez...",
+                "noPicture": "Aucune image disponible",
+                "unknownMaker": "Inconnu",
+                "untitled": "Sans titre",
+                "noData": "Les données s'envolent",
+            },
+        };
+        document.addEventListener('DOMContentLoaded', function() {
+            Object.entries(languages).forEach(([lang, data]) => {
+                if (navigator.language.toLowerCase() === lang.toLowerCase()) {
+                    Object.entries(data).forEach(([key, value]) => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.innerHTML = value;
+                        }
+                    });
                 }
-            } catch (err) {
-                console.error('Error:', err.message);
-                rollVideoView.innerHTML = '<a style="color: red; font-size: 3em; font-weight: bold; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;">Datas fly away</a>';
-            }
-        })();
+            });
+            const rollVideoView = document.getElementById('rollVideoView');
+            (async () => {
+                try {
+                    const response = await fetch('http://localhost:3000/api/videos/get/random');
+                    if (!response.ok) throw new Error('数据加载失败');
+                    const data = await response.json();
+                    rollVideoView.innerHTML = '';
+
+                    Object.values(data).forEach(video => {
+                        const span = document.createElement('span');
+                        span.style="boder-radius: 0.5em; background-color: yellow; width: 400px;"
+                        span.innerHTML = `
+                            <div style="width: 400px; height: 225px; background-color: gray; color: white; text-align: center; line-height: 225px; border-radius: 0.5em; overflow: hidden;">
+                                <a href="${video.Src ? `videoview.html?src=${video.Src}` : `videocannotplay.html?from=home`}" style="color: white; text-decoration: none; background-color: white;">
+                                    <div>
+                                        ${video.Picture ?
+                                        `
+                                        <img src="${video.Picture}" style="width: 100%; height: 100%;">
+                                        `
+                                        :
+                                        `
+                                        ${languages[navigator.language.toLowerCase()] ? languages[navigator.language.toLowerCase()].noPicture : languages['en-us'].noPicture}
+                                        `
+                                        }
+                                    </div>
+                                </a>
+                            </div>
+                            <div style="color: #333333; font-size: 0.8em; display: flex; align-items: center;">
+                                ${video.Maker.Head?`<img src="${video.Maker.Head}" width="25px" height="25px" style="border-radius: 50%;">`:''}
+                                ${video.Maker.Official[0]?`<img src="../svg/official.svg" width="15px" height="15px" >`:''}
+                                ${video.Maker.Name || (languages[navigator.language.toLowerCase()] ? languages[navigator.language.toLowerCase()].unknownMaker : languages['en-us'].unknownMaker)}
+                            </div>
+                            <style>
+                                .videoTitle {
+                                    font-size: 1.5em;
+                                    font-weight: bold;
+                                    color: #111111;
+                                    text-decoration: none;
+                                    background-color: white;
+                                    transition: all 0.2s ease-in-out;
+                                }
+                                .videoTitle:hover {
+                                    color: blue;
+                                }
+                            </style>
+                            <a class="videoTitle" href="${video.Src ? `videoview.html?src=${video.Src}` : `videocannotplay.html?from=home`}">
+                                ${video.Title || (languages[navigator.language.toLowerCase()] ? languages[navigator.language.toLowerCase()].untitled : languages['en-us'].untitled)}
+                            </a>
+                            `;
+                        rollVideoView.appendChild(span);
+                    });
+
+                    if (rollVideoView.children.length === 0) {
+                        rollVideoView.innerHTML = '<a style="font-size: 3em; font-weight: bold; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;">Emm... There\'s nothing :(</a>';
+                    }
+                } catch (err) {
+                    console.error('Error:', err.message);
+                    rollVideoView.innerHTML = `<a style="color: red; font-size: 3em; font-weight: bold; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;">${languages[navigator.language.toLowerCase()] ? languages[navigator.language.toLowerCase()].noData : languages['en-us'].noData}</a>`;
+                }
+            })();
+    });
     </script>
 </html>

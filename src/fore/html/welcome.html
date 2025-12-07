@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Welcome to the kolamona!</title>
+        <title id="title">Welcome to the kolamona!</title>
         <meta charset="UTF-8">
-        <link rel="icon" type="image/svg+xml" href="../src/svg/icon.svg">
+        <link rel="icon" type="image/svg+xml" href="../svg/icon.svg">
     </head>
     <body>
-        <div style="width: auto; height: auto; background-color: antiquewhite; padding-left: 0.5em; padding-right: 0.5em; outline: 0.2em solid blue;">
-            <a style="font-size: 2em; font-weight: bold;">Welcome to the </a><a href="home.html"><img src="../svg/icon.svg" width="30em" height="30em" onclick="" title="(the logo of kolamona)"></a><a href="home.html" style="font-size: 2em; font-weight: bold;color: pink;cursor: auto;text-decoration: none;">olamona</a><a style="font-size: 2em; font-weight: bold;"> !</a>
+        <div style="width: auto; height: auto; background-color: antiquewhite; padding-left: 0.5em; padding-right: 0.5em; outline: 0.2em solid blue;" id="welcome">
+            <a style="font-size: 2em; font-weight: bold;">Welcome to the </a><a href="home.html"><img src="../svg/icon.svg" width="30em" height="30em" title="(the logo of kolamona)"></a><a href="home.html" style="font-size: 2em; font-weight: bold;color: pink;cursor: auto;text-decoration: none;">olamona</a><a style="font-size: 2em; font-weight: bold;"> !</a>
+        </div>
     </body>
     <script>
+        const langs = {
+            "en-us": {
+                "title": "Welcome to the kolamona!",
+                "welcome": `<a style="font-size: 2em; font-weight: bold;">Welcome to the </a><a href="home.html"><img src="../svg/icon.svg" width="30em" height="30em" title="(the logo of kolamona)"></a><a href="home.html" style="font-size: 2em; font-weight: bold;color: pink;cursor: auto;text-decoration: none;">olamona</a><a style="font-size: 2em; font-weight: bold;"> !</a>`
+            },
+            "zh-cn": {
+                "title": "欢迎来到 kolamona！",
+                "welcome": `<a style="font-size: 2em; font-weight: bold;">欢迎来到 </a><a href="home.html"><img src="../svg/icon.svg" width="30em" height="30em" title="(kolamona的logo)"></a><a href="home.html" style="font-size: 2em; font-weight: bold;color: pink;cursor: auto;text-decoration: none;">olamona</a><a style="font-size: 2em; font-weight: bold;"> ！</a>`
+            },
+            "zh-tw": {
+                "title": "歡迎來到 kolamona！",
+                "welcome": `<a style="font-size: 2em; font-weight: bold;">歡迎來到 </a><a href="home.html"><img src="../svg/icon.svg" width="30em" height="30em" title="(kolamona的logo)"></a><a href="home.html" style="font-size: 2em; font-weight: bold;color: pink;cursor: auto;text-decoration: none;">olamona</a><a style="font-size: 2em; font-weight: bold;"> ！</a>`
+            },
+            "ja-jp": {
+                "title": "kolamonaへようこそ！",
+                "welcome": `<a style="font-size: 2em; font-weight: bold;"><a href="home.html"><img src="../svg/icon.svg" width="30em" height="30em" title="(kolamonaのロゴ)"></a>kolamonaへようこそ！</a>`
+            },
+            "ko-kr": {
+                "title": "kolamona에 오신 것을 환영합니다!",
+                "welcome": `<a style="font-size: 2em; font-weight: bold;"><a href="home.html"><img src="../svg/icon.svg" width="30em" height="30em" title="(kolamona의 로고)"></a>kolamona에 오신 것을 환영합니다!</a>`
+            },
+            "es-es": {
+                "title": "¡Bienvenido a kolamona!",
+                "welcome": `<a style="font-size: 2em; font-weight: bold;">¡Bienvenido a </a><a href="home.html"><img src="../svg/icon.svg" width="30em" height="30em" title="(el logo de kolamona)"></a><a href="home.html" style="font-size: 2em; font-weight: bold;color: pink;cursor: auto;text-decoration: none;">olamona</a><a style="font-size: 2em; font-weight: bold;">!</a>`
+            },
+            "fr-fr": {
+                "title": "Bienvenue sur kolamona!",
+                "welcome": `<a style="font-size: 2em; font-weight: bold;">Bienvenue sur </a><a href="home.html"><img src="../svg/icon.svg" width="30em" height="30em" title="(le logo de kolamona)"></a><a href="home.html" style="font-size: 2em; font-weight: bold;color: pink;cursor: auto;text-decoration: none;">olamona</a><a style="font-size: 2em; font-weight: bold;">!</a>`
+            }
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            Object.entries(langs).forEach(([lang, data]) => {
+                if (navigator.language.toLowerCase() === lang.toLowerCase()) {
+                    Object.entries(data).forEach(([key, value]) => {
+                        document.getElementById(key).innerHTML = value;
+                    });
+                }
+            });
+        });
     </script>
 </html>

@@ -1,7 +1,88 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Video cannot play</title>
+        <title id="title">Video cannot be played</title>
         <meta charset="UTF-8">
+        <link rel="icon" type="image/svg+xml" href="../svg/icon.svg">
     </head>
+    <body>
+        <div style="width: auto; height: auto; background-color: antiquewhite; padding-left: 0.5em; padding-right: 0.5em; outline: 0.2em solid blue;">
+            <a href="welcome.html"><img src="../svg/icon.svg" width="30em" height="30em" onclick="" title="(the logo of kolamona)"></a><a href="welcome.html" style="font-size: 2em; font-weight: bold;color: pink;cursor: auto;text-decoration: none;">olamona</a>
+        </div>
+        <div style="width: auto; height: auto; background-color: antiquewhite; padding-left: 0.5em; padding-right: 0.5em; outline: 0.2em solid blue;">
+            <a style="font-size: 2em; font-weight: bold;cursor: auto;text-decoration: none;
+            color: chocolate;"
+            href="home.html"
+            id="homeLink">
+                Home
+            </a>
+            <a style="font-size: 2em; font-weight: bold;cursor: auto;text-decoration: none;
+            color: chocolate;"
+            href="about.html"
+            id="aboutLink">
+                About
+            </a>
+        </div>
+        <noscript>
+            <a style="font-size: 3em; font-weight: bold; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                Emm... There's no <span style="color: red;">script</span> :(
+            </a>
+        </noscript>
+        <div id="videoCannotPlay">
+            Sorry, the video cannot be played. Please try again later , maybe i'ts making now.
+        </div>
+        <script>
+            const languages = {
+                "en-us": {
+                    "title": "Video cannot be played",
+                    "homeLink": "Home",
+                    "aboutLink": "About",
+                    "videoCannotPlay": "Sorry, the video cannot be played. Please try again later , maybe i'ts making now."
+                },
+                "zh-cn": {
+                    "title": "视频无法播放",
+                    "homeLink": "首页",
+                    "aboutLink": "关于",
+                    "videoCannotPlay": "抱歉，视频不知道飞哪去了。请稍候，可能还在做呢~"
+                },
+                "zh-tw": {
+                    "title": "視頻無法播放",
+                    "homeLink": "首頁",
+                    "aboutLink": "關於",
+                    "videoCannotPlay": "抱歉，視頻不知道飛哪去了。請稍候，可能還在做呢~"
+                },
+                "ja-jp": {
+                    "title": "ビデオの再生ができません",
+                    "homeLink": "ホーム",
+                    "aboutLink": "詳細",
+                    "videoCannotPlay": "申し訳ありません。ビデオの再生ができません。後でもう一度お試しください。"
+                },
+                "ko-kr": {
+                    "title": "비디오 재생이 불가능합니다",
+                    "homeLink": "홈",
+                    "aboutLink": "소개",
+                    "videoCannotPlay": "죄송합니다. 비디오를 재생할 수 없습니다. 잠시 후 다시 시도해주세요."
+                },
+                "es-es": {
+                    "title": "No se puede reproducir el video",
+                    "homeLink": "Inicio",
+                    "aboutLink": "Acerca de",
+                    "videoCannotPlay": "Lo sentimos, no se puede reproducir el video. Inténtalo de nuevo, quizás esté en proceso."
+                },
+                "fr-fr": {
+                    "title": "Impossible de lire la vidéo",
+                    "homeLink": "Accueil",
+                    "aboutLink": "À propos",
+                    "videoCannotPlay": "Désolé, la vidéo ne peut pas être lue. Veuillez réessayer ultérieurement, peut-être que elle est en cours."
+                }
+            }
+            Object.entries(languages).forEach(([lang, datas]) => {
+                if (navigator.language.toLowerCase() === lang.toLowerCase()) {
+                    Object.entries(datas).forEach(([key, value]) => {
+                        document.getElementById(key).innerHTML = value;
+                    });
+                }
+            });
+        </script>
+    </body>
 </html>

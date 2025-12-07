@@ -10,10 +10,11 @@ Please do this:
 
 For running the backend server, follow the steps below:
  - Find and run the `server.py` file in the `src/back` directory.
- - The server will start running on `http://localhost:5000`.
+ - Please let server start running on `http://localhost:5500`.
+ - > Else you cannot get some datas!
 
 For running the frontend web application, follow the steps below:
  - Open the `home.html` file located in the `src/fore/html`.
- - The web application will load and interact with the backend server running on `http://localhost:5000`.
+ - The web application will load and interact with the backend server running on `http://localhost:5500`.
  - To view the welcome message, open the `welcome.html` file located in the `src/fore/html`.
  - > It's really simple! You cannot only view it!
