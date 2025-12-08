@@ -1,6 +1,5 @@
 {
     "0": {
-        "Id": "Maker",
         "Name": "Kolamona站长-Official",
         "Head": "../svg/icon.svg",
         "Official": [true, "Maker"],
